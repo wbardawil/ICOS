@@ -1,0 +1,7 @@
+anthropic>=0.18.0
+google-generativeai>=0.4.0
+supabase>=2.0.0
+python-dotenv>=1.0.0
+notion-client>=2.0.0
+fastapi
+uvicorn

@@ -1,0 +1,253 @@
+{
+    "name": "ICOS Content Engine v2",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "cronExpression",
+                            "expression": "0 8,13,18 * * *"
+                        }
+                    ]
+                }
+            },
+            "id": "schedule-trigger-id",
+            "name": "3x Daily Schedule",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1,
+            "position": [
+                100,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "pollTimes": {
+                    "item": [
+                        {
+                            "mode": "everyMinute"
+                        }
+                    ]
+                },
+                "resource": "databasePage",
+                "event": "pagedAddedOrUpdated",
+                "databaseId": {
+                    "__rl": true,
+                    "value": "PLACEHOLDER_IDEAS_DB_ID",
+                    "mode": "id"
+                },
+                "filters": {
+                    "conditions": [
+                        {
+                            "key": "Status",
+                            "condition": "equals",
+                            "selectValue": "Generate"
+                        }
+                    ]
+                }
+            },
+            "id": "notion-trigger-id",
+            "name": "Notion: On Generate",
+            "type": "n8n-nodes-base.notionTrigger",
+            "typeVersion": 1,
+            "position": [
+                100,
+                500
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "http://localhost:8000/sync-profile",
+                "sendBody": true,
+                "bodyParameters": {
+                    "parameters": []
+                }
+            },
+            "id": "sync-profile-id",
+            "name": "Sync Profile",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4,
+            "position": [
+                300,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "http://localhost:8000/next-combo",
+                "options": {}
+            },
+            "id": "get-combo-id",
+            "name": "Get Next Topic/Style",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4,
+            "position": [
+                500,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "http://localhost:8000/generate-post",
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={\n  \"topic\": \"{{ $json.topic_name || $node['Notion: On Generate'].json.properties.Name.title[0].plain_text }}\",\n  \"style_instruction\": \"{{ $json.style_instruction || '' }}\",\n  \"platform\": \"linkedin\"\n}",
+                "options": {}
+            },
+            "id": "ghostwriter-id",
+            "name": "Ghostwriter: Generate Post",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4,
+            "position": [
+                750,
+                400
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "http://localhost:8000/generate-visual",
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={\n  \"topic\": \"{{ $node['Ghostwriter: Generate Post'].json.topic || $node['Notion: On Generate'].json.properties.Name.title[0].plain_text }}\",\n  \"post_content\": \"{{ $json.content }}\"\n}",
+                "options": {}
+            },
+            "id": "visualist-id",
+            "name": "Visualist: Generate Concept",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4,
+            "position": [
+                950,
+                400
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "http://localhost:8000/notion-update",
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={\n  \"page_id\": \"{{ $node['Notion: On Generate'].json.id || '' }}\",\n  \"status\": \"Drafted\",\n  \"draft\": \"{{ $node['Ghostwriter: Generate Post'].json.content }}\"\n}",
+                "options": {}
+            },
+            "id": "notion-update-id",
+            "name": "Notion: Write Back Draft",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4,
+            "position": [
+                1150,
+                500
+            ]
+        },
+        {
+            "parameters": {
+                "authentication": "oAuth2",
+                "resource": "chat",
+                "operation": "postMessage",
+                "channelId": {
+                    "__rl": true,
+                    "value": "#content-review"
+                },
+                "text": "=@{{ $node['Ghostwriter: Generate Post'].json.content }}\n\nVisual: {{ $node['Visualist: Generate Concept'].json.description }}",
+                "attachments": [
+                    {
+                        "actions": [
+                            {
+                                "name": "approve",
+                                "text": "Approve",
+                                "type": "button",
+                                "value": "approve"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "id": "slack-id",
+            "name": "Slack: Review",
+            "type": "n8n-nodes-base.slack",
+            "typeVersion": 2,
+            "position": [
+                1350,
+                400
+            ]
+        }
+    ],
+    "connections": {
+        "3x Daily Schedule": {
+            "main": [
+                [
+                    {
+                        "node": "Sync Profile",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Notion: On Generate": {
+            "main": [
+                [
+                    {
+                        "node": "Ghostwriter: Generate Post",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Sync Profile": {
+            "main": [
+                [
+                    {
+                        "node": "Get Next Topic/Style",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get Next Topic/Style": {
+            "main": [
+                [
+                    {
+                        "node": "Ghostwriter: Generate Post",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Ghostwriter: Generate Post": {
+            "main": [
+                [
+                    {
+                        "node": "Visualist: Generate Concept",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Visualist: Generate Concept": {
+            "main": [
+                [
+                    {
+                        "node": "Slack: Review",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Notion: Write Back Draft",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "active": false,
+    "settings": {}
+}

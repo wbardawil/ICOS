@@ -1,0 +1,70 @@
+{
+    "name": "Wadi Bardawil",
+    "role": "Fractional Chief Strategy and Technology Officer (CSTO)",
+    "uvp": "I partner with ambitious business owners and executives to transform operational overwhelm into strategic clarity and decisive action. I bridge the critical gap between vision and execution—integrating advanced strategic frameworks with practical technology solutions tailored specifically for mid-sized businesses.",
+    "mission": "Amar con las virtudes y talentos por amor con la obras",
+    "target_audience": {
+        "primary": "Business owners and executives of companies with $10M - $100M annual revenue",
+        "secondary": [
+            "Venture-backed startups (Series A-C)",
+            "Private Equity portfolio companies"
+        ],
+        "pain_points": [
+            "Strategic vision blinded by daily operations",
+            "Workforce is overly operational and lacks strategic thinking",
+            "Operating in reactive mode where everything is an urgency",
+            "Leaders feel alone in strategic thinking and initiative development"
+        ]
+    },
+    "topics": [
+        "Strategic Business Initiatives",
+        "Digital Transformation",
+        "AI Implementation",
+        "Process Optimization",
+        "Profitability and Sustainable Growth"
+    ],
+    "content_styles": [
+        {
+            "name": "Actionable",
+            "instruction": "Pure how-to guides with specific steps"
+        },
+        {
+            "name": "Motivational",
+            "instruction": "Stories of struggle vs success"
+        },
+        {
+            "name": "Analytical",
+            "instruction": "Break down WHY things work"
+        },
+        {
+            "name": "Contrarian",
+            "instruction": "Counter-intuitive advice"
+        },
+        {
+            "name": "Observation",
+            "instruction": "Hidden trends others miss"
+        },
+        {
+            "name": "X vs Y",
+            "instruction": "Compare old way vs new way"
+        },
+        {
+            "name": "Present vs Future",
+            "instruction": "Predictions about industry direction"
+        },
+        {
+            "name": "Listicle",
+            "instruction": "Numbered tips, tools, or tactics"
+        }
+    ],
+    "frameworks": {
+        "bds_framework": [
+            "Playing to Win (Strategic choices)",
+            "OKRs (Measurement)",
+            "EOS (Execution systems)",
+            "Agile (Meeting cadence)"
+        ]
+    },
+    "pricing": "$175+ USD/hr",
+    "last_synced": "2026-01-06T19:35:00"
+}

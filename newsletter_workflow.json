@@ -1,0 +1,112 @@
+{
+    "name": "ICOS Bilingual Newsletter",
+    "nodes": [
+        {
+            "parameters": {
+                "rule": {
+                    "interval": [
+                        {
+                            "field": "cronExpression",
+                            "expression": "0 10 * * 5"
+                        }
+                    ]
+                }
+            },
+            "id": "trigger-id",
+            "name": "Weekly Friday 10AM",
+            "type": "n8n-nodes-base.scheduleTrigger",
+            "typeVersion": 1,
+            "position": [
+                100,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "url": "http://localhost:8000/weekly-winners",
+                "options": {}
+            },
+            "id": "winners-id",
+            "name": "Get Weekly Winners",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4,
+            "position": [
+                300,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "method": "POST",
+                "url": "http://localhost:8000/generate-newsletter",
+                "sendBody": true,
+                "specifyBody": "json",
+                "jsonBody": "={\n  \"posts\": {{ $json }}\n}",
+                "options": {}
+            },
+            "id": "newsletter-agent-id",
+            "name": "Newsletter Agent",
+            "type": "n8n-nodes-base.httpRequest",
+            "typeVersion": 4,
+            "position": [
+                500,
+                300
+            ]
+        },
+        {
+            "parameters": {
+                "authentication": "oAuth2",
+                "channelId": {
+                    "__rl": true,
+                    "value": "#newsletter-drafts"
+                },
+                "text": "=🆕 *New Bilingual Newsletter Drafts*\n\n--- \n*English:* \n{{ $json.english }}\n\n--- \n*Spanish:* \n{{ $json.spanish }}"
+            },
+            "id": "slack-notify-id",
+            "name": "Slack: Review Newsletter",
+            "type": "n8n-nodes-base.slack",
+            "typeVersion": 2,
+            "position": [
+                750,
+                300
+            ]
+        }
+    ],
+    "connections": {
+        "Weekly Friday 10AM": {
+            "main": [
+                [
+                    {
+                        "node": "Get Weekly Winners",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get Weekly Winners": {
+            "main": [
+                [
+                    {
+                        "node": "Newsletter Agent",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Newsletter Agent": {
+            "main": [
+                [
+                    {
+                        "node": "Slack: Review Newsletter",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "active": false,
+    "settings": {}
+}

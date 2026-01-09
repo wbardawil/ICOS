@@ -1,0 +1,24 @@
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Data and logs
+content_log.json
+*.log
+
+# Workspace
+.agent/
+.gemini/
+.vscode/
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store

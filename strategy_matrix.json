@@ -1,0 +1,104 @@
+{
+  "y_axis_topics": [
+    "Strategic Business Initiatives",
+    "Digital Transformation",
+    "AI Implementation",
+    "Process Optimization",
+    "Profitability and Sustainable Growth",
+    "Leadership Development",
+    "Decision Making Frameworks",
+    "Scaling Operations"
+  ],
+  "x_axis_styles": [
+    {
+      "style": "The Contrarian",
+      "inspiration": "Justin Welsh",
+      "instruction": "State a commonly held belief, then dismantle it with data or experience. Polarizing but respectful."
+    },
+    {
+      "style": "The Actionable",
+      "inspiration": "Justin Welsh",
+      "instruction": "Pure how-to. Zero fluff. Numbered list. Promise a specific outcome in the hook."
+    },
+    {
+      "style": "The Observation",
+      "inspiration": "Matt Gray",
+      "instruction": "Start with 'I analyzed X...' or 'I noticed Y...'. Deduce a hidden pattern."
+    },
+    {
+      "style": "The Napkin Diagram",
+      "inspiration": "Matt Gray",
+      "instruction": "Visualize a complex concept in a simple sketch. X vs Y, flowcharts, pyramids."
+    },
+    {
+      "style": "The Thread",
+      "inspiration": "Sahil Bloom",
+      "instruction": "Long-form storytelling with numbered sections. Start with a bold claim. Build to a revelation."
+    },
+    {
+      "style": "The Mental Model",
+      "inspiration": "Sahil Bloom",
+      "instruction": "Explain a psychological principle and apply it to business. Use the format: 'The [Name] Effect'."
+    },
+    {
+      "style": "The Data Story",
+      "inspiration": "Alex Hormozi",
+      "instruction": "Lead with a shocking number. Break down exactly how you got there. Be brutally specific."
+    },
+    {
+      "style": "The Rant",
+      "inspiration": "Alex Hormozi",
+      "instruction": "Strong opinion delivered with high energy. Short sentences. Repetition for emphasis."
+    },
+    {
+      "style": "The Framework",
+      "inspiration": "Codie Sanchez",
+      "instruction": "Introduce a proprietary framework with an acronym. Break down each letter/step."
+    },
+    {
+      "style": "The Case Study",
+      "inspiration": "Codie Sanchez",
+      "instruction": "Real story from your work. Problem → Solution → Specific Result. Use actual numbers."
+    },
+    {
+      "style": "The Prediction",
+      "inspiration": "Gary Vaynerchuk",
+      "instruction": "Bold future claim. 'In 3 years, X will Y.' Back it with current trends."
+    },
+    {
+      "style": "The Hard Truth",
+      "inspiration": "Gary Vaynerchuk",
+      "instruction": "Call out what people don't want to hear. Direct, confrontational, but caring."
+    },
+    {
+      "style": "The Mindset Shift",
+      "inspiration": "Simon Sinek",
+      "instruction": "Reframe how people think about a problem. Start with WHY before HOW."
+    },
+    {
+      "style": "The Question",
+      "inspiration": "Simon Sinek",
+      "instruction": "Open with a provocative question. Let the reader sit with it. Then answer."
+    },
+    {
+      "style": "The Listicle",
+      "inspiration": "Multiple",
+      "instruction": "5-10 tips, tools, or tactics. Quick wins. Highly shareable format."
+    },
+    {
+      "style": "The Before/After",
+      "inspiration": "Multiple",
+      "instruction": "Show transformation. Then vs Now. Old Way vs New Way. Specific metrics."
+    }
+  ],
+  "target_audience": {
+    "who": "Business owners and executives of companies with $10M - $100M annual revenue",
+    "pain_points": [
+      "Strategic vision blinded by daily operations",
+      "Workforce is overly operational and lacks strategic thinking",
+      "Operating in reactive mode where everything is an urgency",
+      "Leaders feel alone in strategic thinking and initiative development"
+    ]
+  },
+  "uvp": "I partner with ambitious business owners and executives to transform operational overwhelm into strategic clarity and decisive action."
+}
